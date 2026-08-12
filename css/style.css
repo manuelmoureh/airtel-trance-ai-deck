@@ -332,6 +332,25 @@ h1, h2, h3 { font-weight: 900; line-height: 1.04; letter-spacing: -.025em; }
   #dots, .chrome-side, .kbd-hint { display: none; }
 }
 
+/* Mobile overflow safety net — content that's taller than one viewport
+   scrolls within its own slide instead of being clipped by overflow:hidden. */
+@media(max-width: 700px) {
+  .slide {
+    height: auto;
+    min-height: 100dvh;
+    max-height: 100dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-top: 3.2rem;
+    padding-bottom: 2rem;
+  }
+  .inner { padding-bottom: .5rem; }
+  /* Footer chrome is absolutely positioned to the slide's full scrollable
+     height, so on a scrolling slide it can overlap mid-content — hide it
+     here rather than risk overlap, same as the dots/kbd-hint already do. */
+  .chrome-foot, .chrome-page { display: none; }
+}
+
 svg { display: block; max-width: 100%; }
 .icon { width: 24px; height: 24px; stroke-width: 1.8; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
@@ -400,3 +419,23 @@ svg { display: block; max-width: 100%; }
   border-radius: 6px;
   letter-spacing: .05em;
 }
+
+/* Logo Chips (white rounded backdrops for brand marks on dark slides) */
+.logo-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFFFFF;
+  border-radius: 10px;
+  height: 34px;
+  padding: 0 .85rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+}
+.logo-chip img {
+  height: 60%;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  display: block;
+}
+.logo-chip.airtel img { height: 55%; }
